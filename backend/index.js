@@ -13,7 +13,6 @@ const conn = mysql.createConnection({
   database: 'planzen'   // your DB name
 });
 
-// ✅ GET all tasks
 app.get('/tasks', (req, res) => {
   conn.query('SELECT * FROM tasks', (err, results) => {
     if (err) return res.status(500).send(err);
@@ -21,7 +20,6 @@ app.get('/tasks', (req, res) => {
   });
 });
 
-// ✅ POST a new task
 app.post('/tasks', (req, res) => {
   const { title } = req.body;
   conn.query('INSERT INTO tasks (title, is_done) VALUES (?, false)', [title], (err) => {
@@ -30,7 +28,6 @@ app.post('/tasks', (req, res) => {
   });
 });
 
-// ✅ PUT toggle task done
 app.put('/tasks/:id', (req, res) => {
   const { id } = req.params;
   conn.query(
@@ -43,7 +40,6 @@ app.put('/tasks/:id', (req, res) => {
   );
 });
 
-// ✅ DELETE a task
 app.delete('/tasks/:id', (req, res) => {
   const { id } = req.params;
   conn.query('DELETE FROM tasks WHERE id = ?', [id], (err) => {
